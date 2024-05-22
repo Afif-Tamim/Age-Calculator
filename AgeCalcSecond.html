@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="AgeCalcSecond.css">
+</head>
+
+<body>
+    
+    <p id="ageDisplay"></p>
+</body>
+<script>
+    function CalculateAge(dob) {
+        const today = new Date();
+        var birthdate = new Date(dob);
+
+        let age = today.getFullYear() - birthdate.getFullYear();
+        const monthDifference = today.getMonth() - birthdate.getMonth();
+        let day = birthdate.getDate();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthdate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const dob = urlParams.get('dob');
+        
+        if (dob) {
+            const age = CalculateAge(dob);
+            document.getElementById('ageDisplay').innerHTML = `You are <span>${age}</span> years old.`;
+        } else {
+            document.getElementById('ageDisplay').textContent = 'No Date of birth provided.';
+        }
+    }
+</script>
+
+</html>
